@@ -1,0 +1,85 @@
+/** @jsxImportSource @emotion/react */
+import { css } from '@emotion/react';
+import { useContext } from "react";
+import { MovieContext } from "./../../Context/MovieContext";
+import Container from "./../ReusableComponents/Container";
+
+ 
+const style = css`
+width: 70%;
+.container {
+  &:nth-child(1) {
+    height: 81vh;
+    overflow-y: scroll;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-left: 21%;
+    &::-webkit-scrollbar {
+      width: 0;
+    }
+    .error {
+      font-size: 38px;
+      color: red;
+      height: 32px;
+    }
+  }
+  img {
+    width: 100%;
+    max-width: 240px;
+    height: 360px;
+    margin: 10px 0;
+  }
+}
+@media (max-width: 600px) {
+  .container {
+    img {
+      max-width: 100%;
+      height: 500px;
+    }
+  }
+}
+@media (min-width: 601px) and (max-width: 854px) {
+  .container {
+    img {
+      max-width: 48%;
+    }
+  }
+}
+@media (min-width: 855px) and (max-width: 1144px) {
+  .container {
+    img {
+      max-width: 31%;
+    }
+  }
+}
+@media (min-width: 1145px) and (max-width: 1365px) {
+  .container {
+    img {
+      max-width: 23.4%;
+    }
+  }
+}
+`;
+
+
+const PopularMovies = () => {
+
+    const {popularMovies} = useContext(MovieContext);
+
+    return (
+        <div css={style} className="popularMovies">
+            <Container>
+                {popularMovies.results && popularMovies.results.map((popularMovieItem, index) => (
+                    <img 
+                      key={index} 
+                      src={`https://image.tmdb.org/t/p/w400/${popularMovieItem.poster_path}`} 
+                      alt="Poster">
+                    </img>
+                ))}
+            </Container>
+        </div>
+    )
+}
+
+export default PopularMovies;
